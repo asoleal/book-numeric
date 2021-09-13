@@ -1,12 +1,70 @@
-\documentclass{scrreprt}
+% arara: clean: {
+% arara: --> extensions:
+% arara: --> ['log','aux','bbl','bcf','blg','idx','ilg','ind','pdf','run.xml','synctex.gz']
+% arara: --> }
+% arara: lualatex: {
+% arara: --> shell: yes,
+% arara: --> draft: yes,
+% arara: --> interaction: batchmode
+% arara: --> }
+% arara: biber
+% arara: lualatex: {
+% arara: --> shell: yes,
+% arara: --> synctex: yes,
+% arara: --> interaction: batchmode
+% arara: --> }
+% arara: lualatex: {
+% arara: --> shell: yes,
+% arara: --> synctex: yes,
+% arara: --> interaction: batchmode
+% arara: --> }
+% arara: clean: {
+% arara: --> extensions:
+% arara: --> ['log','aux','bbl','bcf','blg','idx','ilg','ind','run.xml','synctex.gz']
+% arara: --> }
+\documentclass[10pt,
+	a4paper,
+	spanish,
+	titlepage=firstiscover,
+	titlepage=true,
+	%chapterprefix=true,
+	BCOR=2cm,
+	DIV=12
+]{scrbook}
+
+\input{preamble}
+
+\author{John Leal, Carlos Aznarán}
+\title{Introducción a la solución numérica de modelos matemáticos utilizando ecuaciones diferenciales}
+\subtitle{Introducción a la solución de sistemas físicos utilizando ecuaciones diferenciales parciales y métodos numéricos, utilizando diversas herramientas computacionales, C++, Python entre otras}
 
 \begin{document}
 
-Hola.
+\maketitle
 
-\chapter{Introduction}
+% TODO: Adaptar las imágenes de los capítulos en la clase komma-script. ver https://tecdigital.tec.ac.cr/revistamatematica/Libros/LaTeX/index.html#PlantillaLibrosEjercicios
+\begin{refsection}
+	\chapterimage{example-image}
+	\chapter{Introduction}
+	
+	B.\cite{Reilly}
+
+	\printbibliography[
+	title={Referencias},
+	heading=bibintoc]
+	% TODO Poner correctamente la bibliografía y referencia: ver https://tex.stackexchange.com/a/183274/117967
+	\nocite{*}
+	\printbibliography[
+	title={Bibliografía},
+	heading=none,keyword=paper]
+\end{refsection}
 
 \subsection{C++}
 
+A\index{A}.
+
 $$\int_a^b f(x)dx$$
+
+\printindex
+
 \end{document}
