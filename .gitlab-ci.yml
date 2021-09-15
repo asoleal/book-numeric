@@ -1,0 +1,11 @@
+image: ghcr.io/cpp-review-dune/introductory-review/texlive:latest
+
+build:
+  only:
+    changes:
+      - src/*.tex
+  script:
+    - (cd src && arara main)
+  artifacts:
+    paths:
+      - "src/main.pdf"
