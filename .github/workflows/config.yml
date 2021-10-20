@@ -25,7 +25,7 @@ jobs:
           git clone -q --filter=blob:none --no-checkout --depth=1  --sparse $REPO .
           git sparse-checkout init --cone
           git sparse-checkout set src/
-          git checkout
+          git checkout develop
 
       - uses: addnab/docker-run-action@v3
         with:
@@ -36,9 +36,9 @@ jobs:
           options: -v ${{github.workspace}}:/work
           shell: bash
           run: |
-            # sudo -u aur yay -Syu texlive-latexextra texlive-pictures texlive-science texlive-fontsextra texlive-bibtexextra biber inkscape doxygen python-sphinx ttf-fira-code cmake --needed --noconfirm
+            sudo -u aur yay -Syu texlive-latexextra texlive-pictures texlive-science texlive-fontsextra texlive-bibtexextra biber inkscape doxygen python-sphinx ttf-fira-code cmake --needed --noconfirm
             export PATH="/usr/bin/vendor_perl:$PATH"
-            sudo -E -u aur biber --version && ls && pwd && arara main
+            sudo -E -u aur biber --version && cd /work/src && arara main
 
       - name: Check pdf files
         run: |
