@@ -1,0 +1,58 @@
+name: book-numerics
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - src/*.tex
+  pull_request:
+    branches: [main, develop]
+  #schedule:
+  #  - cron: "0 14 * * 5"
+  # workflow_dispatch:
+
+jobs:
+  build_latex:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Partial Clone
+        shell: bash
+        run: |
+          REPO="https://${GITHUB_ACTOR}:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
+          git config --global user.email github-actions@github.com
+          git config --global user.name github-actions
+          git clone -q --filter=blob:none --no-checkout --depth=1  --sparse $REPO .
+          git sparse-checkout init --cone
+          git sparse-checkout set src/
+          git checkout
+
+      - uses: addnab/docker-run-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          registry: ghcr.io
+          image: ghcr.io/cpp-review-dune/introductory-review/texlive:latest
+          options: -v ${{github.workspace}}:/work
+          shell: bash
+          run: |
+            # sudo -u aur yay -Syu texlive-latexextra texlive-pictures texlive-science texlive-fontsextra texlive-bibtexextra biber inkscape doxygen python-sphinx ttf-fira-code cmake --needed --noconfirm
+            export PATH="/usr/bin/vendor_perl:$PATH"
+            sudo -E -u aur biber --version && cd /work/src && arara main
+
+      - name: Check pdf files
+        run: |
+          find src/ -type f -name "*.pdf" -exec file -- {} + | grep -q ' PDF '
+
+      - name: "Tar files"
+        run: |
+          sudo chown runner:docker -R src
+          mkdir -p docs/public
+          mv src/*.pdf docs/public
+          # mv docs/public/doc_dune-webinar_tex_source.pdf docs/public/slides.pdf
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs/public
