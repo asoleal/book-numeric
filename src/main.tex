@@ -43,25 +43,18 @@ parciales y métodos numéricos, utilizando DUNE}
 \begin{document}
 
 \maketitle
+\tableofcontents
 
 % TODO: Adaptar las imágenes de los capítulos en la clase komma-script. ver https://tecdigital.tec.ac.cr/revistamatematica/Libros/LaTeX/index.html#PlantillaLibrosEjercicios
 \begin{refsection}
+	\part{Software} % {Arch}Linux, Plantillas C++, doxygen (so2021), {docker}GitPod, Git{Hub,Lab}, gmsh, paraview
 	\chapterimage{example-image}
 	\chapter{Introduction}
 	%\input{introduccion.tex}
 	\chapter{Linux, Gitpod y Github}
 	%\input{gitpod.tex}
-	\chapter{Modelos con EDO y EDP}
-	\input{edoedp.tex}
-	\chapter{Elementos Finitos}
-	%\input{elementos.tex}
-	\chapter{Mallas y Software}
-	%\input{mallas.tex}
-	\chapter{Algorítmos y Programación DUNE C++}
-	%\input{algoritmocpp.tex}
-	\chapter{Algorítmos y Programación DUNE Python}
-	%\input{algoritmopy.tex}
-	\chapter{Herramientas Complementarias}
+	\chapter{Plantillas C++}
+	%\input{templates.tex}
 	\section{Yaml y Docker}
 	%\input{docker.tex}
 	\section{Doxygen}
@@ -70,10 +63,19 @@ parciales y métodos numéricos, utilizando DUNE}
 	%\input{markdown.tex}
 	\section{Paraview y Gnuplot}
 	%\input{graficadores.tex}
-	
-	
+	\chapter{Mallas y Software}
+	%\input{mallas.tex}
+	\part{Ecuaciones diferenciales parciales} % Conservación, métodos numéricos, FEM
+	\chapter{Modelos con EDO y EDP}
+	\input{edoedp.tex}
+	\chapter{Elementos Finitos}
+	%\input{elementos.tex}
+	\part{Distributed and Unified Numerics Environment, DuMux - DUNE for Multi-\{Phase, Component, Scale, Physics, \dots\} flow and transport in porous media} % Ejemplos de conservación necesariamente, con ecuaciones de medios porosos, % cosas del handbook
+	\chapter{Algorítmos y Programación DUNE C++} % DuMuX
+	%\input{algoritmocpp.tex}
+	\chapter{Algorítmos y Programación DUNE Python}
+	%\input{algoritmopy.tex}
 
-	
 	B.\cite{Reilly}
 
 	\printbibliography[
