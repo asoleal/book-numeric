@@ -1,3 +1,13 @@
 *.aux
 *.log
 *.pdf
+*.bbl
+*.bcf
+*.blg
+*.idx
+*.ilg
+*.ind
+*.run.xml
+*.synctex.gz
+*.toc
+!src/images/sample.pdf
